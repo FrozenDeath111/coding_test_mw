@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h1>Welcome {{user}}</h1>
+<form action="/add-task" method=POST>
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="user" class="form-label">User</label>
+        <input required type="text" class="form-control" value="{{ user }}" name="user" placeholder="{{ user }}" readonly id="user" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input required type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="textarea" class="form-control" name="description" id="description">
+    </div>
+    <div class="mb-3">
+        <label for="images" class="form-label">Upload Images</label>
+        <input required type="file" multiple class="form-control" name="images" id="images">
+    </div>
+    <div class="mb-3">
+        <label for="creation_date" class="form-label">Creation Dae</label>
+        <input type="date" class="form-control" name="creation_date" id="creation_date">
+    </div>
+    <div class="mb-3">
+        <label for="due_date" class="form-label">Due Date</label>
+        <input type="date" class="form-control" name="due_date" id="due_date">
+    </div>
+    <label for="priority" class="form-label">Priority</label>
+    <select class="form-select" name="priority" id="priority">
+        <option value="1">Low</option>
+        <option value="2">Medium</option>
+        <option value="3">high</option>
+    </select>
+    <label for="mark" class="form-label">Mark</label>
+    <select class="form-select" name="mark" id="mark">
+        <option value="1">Due</option>
+        <option value="2">Done</option>
+    </select>
+    <input type="submit" value="Submit" class="btn btn-secondary"/>
+</form>
+{% else %}
+<h1>Please <a href="{% url 'login' %}">Login</a></h1>
+{% endif %}
+{% endblock %}
