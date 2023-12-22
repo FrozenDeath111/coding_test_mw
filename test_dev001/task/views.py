@@ -33,7 +33,9 @@ class TaskList(APIView):
         print(serializer)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            messages.success(request, "Task Added successfully")
+            return render(request, 'add-task.html', {})
+            #return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -67,7 +69,7 @@ class TaskDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-def addTask(request, user):
+def addTask(request):
     return render(request, 'add-task.html', {})
 
 
