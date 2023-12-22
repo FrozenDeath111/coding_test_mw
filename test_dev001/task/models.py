@@ -11,7 +11,7 @@ class Task(models.Model):
     due_date = models.DateField('Due Date')
     priority = models.CharField('Priority', max_length=20, blank=True)
     mark = models.CharField('Mark', max_length=20, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, related_name="tasks", on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.title

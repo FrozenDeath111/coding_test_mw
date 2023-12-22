@@ -3,11 +3,11 @@
 {% block content %}
 {% if user.is_authenticated %}
 <h1>Welcome {{user}}</h1>
-<form action="/add-task" method=POST>
+<form action="http://127.0.0.1:8000/task" method=POST>
     {% csrf_token %}
     <div class="mb-3">
         <label for="user" class="form-label">User</label>
-        <input required type="text" class="form-control" value="{{ user }}" name="user" placeholder="{{ user }}" readonly id="user" aria-describedby="emailHelp">
+        <input required type="text" class="form-control" value="{{ user.id }}" name="user" readonly id="user" aria-describedby="emailHelp">
     </div>
     <div class="mb-3">
         <label for="title" class="form-label">Title</label>
@@ -31,14 +31,14 @@
     </div>
     <label for="priority" class="form-label">Priority</label>
     <select class="form-select" name="priority" id="priority">
-        <option value="1">Low</option>
-        <option value="2">Medium</option>
-        <option value="3">high</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">high</option>
     </select>
     <label for="mark" class="form-label">Mark</label>
     <select class="form-select" name="mark" id="mark">
-        <option value="1">Due</option>
-        <option value="2">Done</option>
+        <option value="Due">Due</option>
+        <option value="Done">Done</option>
     </select>
     <input type="submit" value="Submit" class="btn btn-secondary"/>
 </form>

@@ -11,7 +11,7 @@
         </li>
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'add-task' user %}">Add Task</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'add-task' %}">Add Task</a>
         </li>
         {% else %}
         <li class="nav-item">
@@ -20,7 +20,7 @@
         {% endif %}
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'show-task' user %}">All Task</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'show-task' %}">All Task</a>
         </li>
         {% else %}
         <li class="nav-item">
