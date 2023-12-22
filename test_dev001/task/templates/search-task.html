@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+        {% if searched %}
+        <h1>You searched for {{ searched }}</h1>
+        {% for task in tasks %}
+            <a href="{% url 'show-task' %}">{{ task.title }}</a>
+        {% endfor %}
+        {% else %}
+        <h1>You searched for Nothing</h1>
+        {% endif%}
+{% endblock %}

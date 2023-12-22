@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card" style="width: 35rem justify-center;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{task.title}}</h5>
+    <p class="card-text">{{ task.description }}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Creations Date: {{ task.creation_date }}</li>
+    <li class="list-group-item">Due Date: {{ task.due_date }}</li>
+    <li class="list-group-item">Priority: {{ task.priority }}</li>
+    <li class="list-group-item">Mark: {{ task.mark }}</li>
+  </ul>
+  <div class="card-body">
+    <a href="{% url 'update-task' task.id %}" class="card-link">Update</a>
+    <a href="{% url 'delete-task' task.id %}" class="card-link">Delete</a>
+  </div>
+</div>
+{% endblock %}

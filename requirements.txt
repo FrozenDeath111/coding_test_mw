@@ -2,3 +2,4 @@ django
 djangorestframework
 django-cors-header
 psycopg2
+environ

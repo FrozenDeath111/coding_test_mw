@@ -2,26 +2,27 @@
 
 {% block content %}
 
-{% for task in tasks %}
-
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">{{task.title}}</h5>
-    <p class="card-text">{{ task.description }}</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Creations Date: {{ task.creation_date }}</li>
-    <li class="list-group-item">Due Date: {{ task.due_date }}</li>
-    <li class="list-group-item">Priority: {{ task.priority }}</li>
-    <li class="list-group-item">Mark: {{ task.mark }}</li>
-  </ul>
-  <div class="card-body">
-    <a href="#" class="card-link">Update {{ task.id }}</a>
-    <a href="#" class="card-link">Delete {{ task.id }}</a>
-  </div>
-</div>
-
-{% endfor %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Task ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Mark</th>
+      <th scope="col">Details</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for task in tasks %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{task.title}}</td>
+      <td>{{ task.priority }}</td>
+      <td>{{ task.mark }}</td>
+      <td><a href="{% url 'details-task' task.id %}">Click</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
 
 {% endblock %}

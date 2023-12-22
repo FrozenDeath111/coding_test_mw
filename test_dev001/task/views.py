@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-from .forms import RegisterForm
+from .forms import RegisterForm, TaskForm
 from .models import Task
 from .serializers import UserSerializer, TaskSerializer
 
@@ -16,14 +16,6 @@ from .serializers import UserSerializer, TaskSerializer
 # Create your views here.
 def home(request):
     return render(request, 'home.html', {})
-
-
-def showTask(request):
-    user = request.user
-    tasks = Task.objects.filter(user=user.id).values()
-    return render(request, 'show-task.html', {
-        'tasks': tasks,
-    })
 
 
 class TaskList(APIView):
@@ -60,6 +52,7 @@ class TaskDetail(APIView):
         serializer = TaskSerializer(task)
         return Response(serializer.data)
 
+
     def put(self, request, pk, format=None):
         task = self.get_object(pk)
         serializer = TaskSerializer(task, data=request.data)
@@ -76,6 +69,58 @@ class TaskDetail(APIView):
 
 def addTask(request, user):
     return render(request, 'add-task.html', {})
+
+
+def showTask(request):
+    user = request.user
+    tasks = Task.objects.filter(user=user.id).values()
+    return render(request, 'show-task.html', {
+        'tasks': tasks,
+    })
+
+
+def detailsTask(request, pk):
+    task = Task.objects.get(pk=pk)
+    return render(request, 'details-task.html', {
+        'task': task,
+    })
+
+
+def updateTask(request, pk):
+    task = Task.objects.get(pk=pk)
+    form = TaskForm(request.POST or None, instance=task)
+
+    if form.is_valid():
+        form.save()
+        return render(request, 'details-task.html', {
+            'task': task,
+        })
+
+    return render(request, 'update-task.html', {
+        'task': task,
+        'form': form
+    })
+
+
+def deleteTask(request, pk):
+    task = Task.objects.get(pk=pk)
+    task.delete()
+    return redirect("show-task")
+
+
+def searchTask(request):
+    if request.method == "POST":
+        searched = request.POST.get('searched')
+        user = request.user
+        tasks = Task.objects.filter(title__contains=searched).filter(user=user.id).values()
+
+        return render(request, 'search-task.html', {
+            'searched': searched,
+            'tasks': tasks
+        })
+
+    else:
+        return render(request, 'search-task.html', {})
 
 
 def loginUser(request):
